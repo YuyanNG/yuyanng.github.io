@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Puzzle</title>
+    <style type="text/css">
+      body{
+        background-color: lavender;
+      }
+      h1{
+        font-style: italic;
+        color: rgb(214, 122, 127);
+        text-align: center;
+      }
+      .container{
+        width: 500px;
+        margin-left: 80px;
+      }
+      .table1{
+        border: 2px solid;
+        border-collapse: collapse;
+        width: 500px;
+      }
+      td{
+        border: 1px solid;
+        border-collapse: collapse;
+        width: 100px;
+        text-align: center;
+      }
+      .smalltext{
+        font-size: 0.5rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      .bigtext{
+        font-size: 2.2rem;
+        text-align: center;
+        font-family: Georgia;
+        cursor: pointer;
+      }
+      .td2{
+        border: none;
+        border-collapse: collapse;
+        width: 100px;
+        text-align: center;
+      }
+      .clue {
+        font-size: 0.8rem;
+        font-family: Georgia;
+  			text-align: center;
+        color: rgb(214, 122, 127);
+        margin-bottom: 4px;
+      }
+      button{
+        background-color: rgb(214, 122, 127);
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 5px 10px;
+        font-size: 16px;
+        color: white;
+        margin: 10px 15px;
+        cursor: pointer;
+      }
+      .success {
+  			border: 3px solid rgb(214, 122, 127);
+        border-radius: 10px;
+  			width: 700px;
+  			height: 100px;
+  			position: absolute;
+  			top: 290px;
+  			left: 50%;
+  			margin-top: -50px;
+  			margin-left: -350px;
+  			font-size: 2.5rem;
+        font-family: Georgia;
+        font-style: italic;
+  			text-align: center;
+  			color: #666666;
+  			background-color: white;
+  			line-height: 6.5rem;
+  			z-index: 100;
+  		}
+    </style>
+
+    <script type="text/javascript">
+
+      var storedIndex="";
+
+      function fnInit()
+      {
+        document.getElementById("clickedcode").hidden = true;
+        document.getElementById("success").hidden = true;
+      }
+
+      function fnClicked(clicked_code)
+      {
+        document.getElementById(clicked_code).style.color = "#999999";
+        clicked_text = document.getElementById(clicked_code).innerHTML;
+        document.getElementById("clickedtext").innerHTML = document.getElementById("clickedtext").innerHTML + clicked_text;
+        document.getElementById("clickedcode").innerHTML = document.getElementById("clickedcode").innerHTML + clicked_code;
+      }
+
+      function fnDiscard()
+      {
+        var className = document.getElementsByClassName("bigtext");
+        for (var index=0; index < className.length; index++) {
+          className[index].style.color = "black";
+        }
+        document.getElementById("clickedtext").innerHTML = "";
+        document.getElementById("clickedcode").innerHTML = "";
+      }
+
+      function fnSubmit()
+      {
+        const answer = [];
+        answer[0] = "a6b5c4d3e2f1";
+        answer[1] = "b5b4b3b2b1";
+        answer[2] = "e6e5e4e3e2e1";
+        answer[3] = "d6c6b6";
+        answer[4] = "f3f2f1";
+        answer[5] = "c1d1e1f1";
+        answer[6] = "b5c5d5";
+
+        clickedCode = document.getElementById("clickedcode").innerHTML;
+        for (var index=0; index < answer.length; index++) {
+          if (clickedCode == answer[index]) {
+            for (var indexB=0; indexB < clickedCode.length; indexB=indexB+2) {
+              targetID = clickedCode.substring(indexB, indexB+2);
+              document.getElementById(targetID).parentNode.style.backgroundColor = "yellow";
+            }
+            document.getElementById("clue"+index).style.color = "white";
+            document.getElementById("clue"+index).style.textDecorationLine = "line-through";
+            if (!storedIndex.includes(index)) {
+              storedIndex = storedIndex + index;
+            }
+          }
+        }
+
+        fnDiscard();
+
+        if (storedIndex.length == 7) {
+          document.getElementById('success').innerHTML = "CONGRATULATIONS !!!";
+          document.getElementById('success').hidden = false;
+        }
+      }
+    </script>
+
+  </head>
+  <body onload="fnInit()">
+    <center>
+    <h1>Solve the puzzle !</h1>
+    <table class="container">
+    <tr>
+    <td>
+    <table class="table1">
+      <tr>
+        <td>
+          <div class="smalltext">A1</div>
+          <div id="a1" class="bigtext" onclick="fnClicked(this.id)">B</div><br>
+        </td>
+        <td>
+          <div class="smalltext">B1</div>
+          <div id="b1" class="bigtext" onclick="fnClicked(this.id)">E</div><br>
+        </td>
+        <td>
+          <div class="smalltext">C1</div>
+          <div id="c1" class="bigtext" onclick="fnClicked(this.id)">F</div><br>
+        </td>
+        <td>
+          <div class="smalltext">D1</div>
+          <div id="d1" class="bigtext" onclick="fnClicked(this.id)">E</div><br>
+        </td>
+        <td>
+          <div class="smalltext">E1</div>
+          <div id="e1" class="bigtext" onclick="fnClicked(this.id)">R</div><br>
+        </td>
+        <td>
+          <div class="smalltext">F1</div>
+          <div id="f1" class="bigtext" onclick="fnClicked(this.id)">N</div><br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="smalltext">A2</div>
+          <div id="a2" class="bigtext" onclick="fnClicked(this.id)">E</div><br>
+        </td>
+        <td>
+          <div class="smalltext">B2</div>
+          <div id="b2" class="bigtext" onclick="fnClicked(this.id)">L</div><br>
+        </td>
+        <td>
+          <div class="smalltext">C2</div>
+          <div id="c2" class="bigtext" onclick="fnClicked(this.id)">O</div><br>
+        </td>
+        <td>
+          <div class="smalltext">D2</div>
+          <div id="d2" class="bigtext" onclick="fnClicked(this.id)">L</div><br>
+        </td>
+        <td>
+          <div class="smalltext">E2</div>
+          <div id="e2" class="bigtext" onclick="fnClicked(this.id)">E</div><br>
+        </td>
+        <td>
+          <div class="smalltext">F2</div>
+          <div id="f2" class="bigtext" onclick="fnClicked(this.id)">U</div><br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="smalltext">A3</div>
+          <div id="a3" class="bigtext" onclick="fnClicked(this.id)">D</div><br>
+        </td>
+        <td>
+          <div class="smalltext">B3</div>
+          <div id="b3" class="bigtext" onclick="fnClicked(this.id)">P</div><br>
+        </td>
+        <td>
+          <div class="smalltext">C3</div>
+          <div id="c3" class="bigtext" onclick="fnClicked(this.id)">P</div><br>
+        </td>
+        <td>
+          <div class="smalltext">D3</div>
+          <div id="d3" class="bigtext" onclick="fnClicked(this.id)">D</div><br>
+        </td>
+        <td>
+          <div class="smalltext">E3</div>
+          <div id="e3" class="bigtext" onclick="fnClicked(this.id)">W</div><br>
+        </td>
+        <td>
+          <div class="smalltext">F3</div>
+          <div id="f3" class="bigtext" onclick="fnClicked(this.id)">S</div><br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="smalltext">A4</div>
+          <div id="a4" class="bigtext" onclick="fnClicked(this.id)">R</div><br>
+        </td>
+        <td>
+          <div class="smalltext">B4</div>
+          <div id="b4" class="bigtext" onclick="fnClicked(this.id)">P</div><br>
+        </td>
+        <td>
+          <div class="smalltext">C4</div>
+          <div id="c4" class="bigtext" onclick="fnClicked(this.id)">R</div><br>
+        </td>
+        <td>
+          <div class="smalltext">D4</div>
+          <div id="d4" class="bigtext" onclick="fnClicked(this.id)">W</div><br>
+        </td>
+        <td>
+          <div class="smalltext">E4</div>
+          <div id="e4" class="bigtext" onclick="fnClicked(this.id)">O</div><br>
+        </td>
+        <td>
+          <div class="smalltext">F4</div>
+          <div id="f4" class="bigtext" onclick="fnClicked(this.id)">Y</div><br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="smalltext">A5</div>
+          <div id="a5" class="bigtext" onclick="fnClicked(this.id)">A</div><br>
+        </td>
+        <td>
+          <div class="smalltext">B5</div>
+          <div id="b5" class="bigtext" onclick="fnClicked(this.id)">A</div><br>
+        </td>
+        <td>
+          <div class="smalltext">C5</div>
+          <div id="c5" class="bigtext" onclick="fnClicked(this.id)">N</div><br>
+        </td>
+        <td>
+          <div class="smalltext">D5</div>
+          <div id="d5" class="bigtext" onclick="fnClicked(this.id)">T</div><br>
+        </td>
+        <td>
+          <div class="smalltext">E5</div>
+          <div id="e5" class="bigtext" onclick="fnClicked(this.id)">L</div><br>
+        </td>
+        <td>
+          <div class="smalltext">F5</div>
+          <div id="f5" class="bigtext" onclick="fnClicked(this.id)">Y</div><br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="smalltext">A6</div>
+          <div id="a6" class="bigtext" onclick="fnClicked(this.id)">G</div><br>
+        </td>
+        <td>
+          <div class="smalltext">B6</div>
+          <div id="b6" class="bigtext" onclick="fnClicked(this.id)">E</div><br>
+        </td>
+        <td>
+          <div class="smalltext">C6</div>
+          <div id="c6" class="bigtext" onclick="fnClicked(this.id)">E</div><br>
+        </td>
+        <td>
+          <div class="smalltext">D6</div>
+          <div id="d6" class="bigtext" onclick="fnClicked(this.id)">B</div><br>
+        </td>
+        <td>
+          <div class="smalltext">E6</div>
+          <div id="e6" class="bigtext" onclick="fnClicked(this.id)">F</div><br>
+        </td>
+        <td>
+          <div class="smalltext">F6</div>
+          <div id="f6" class="bigtext" onclick="fnClicked(this.id)">N</div><br>
+        </td>
+      </tr>
+    </table>
+
+    </td>
+    <td width="300" style="border: none">&nbsp;</td>
+    <td valign="bottom" style="border: none">
+
+    <table>
+    	<tr>
+    		<td class="td2">
+    			<div id="clue0" class="clue">GARDEN</div>
+    			<div id="clue1" class="clue">APPLE</div>
+    			<div id="clue2" class="clue">FLOWER</div>
+          <div id="clue3" class="clue">BEE</div>
+    			<div id="clue4" class="clue">SUN</div>
+    			<div id="clue5" class="clue">FERN</div>
+    			<div id="clue6" class="clue">ANT</div>
+    		</td>
+    	</tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+
+    <button onclick="fnDiscard()">Discard</button>
+    <button onclick="fnSubmit()">Submit</button>
+    <br>
+
+    <div id="clickedtext"></div>
+    <div id="clickedcode"></div>
+
+    <div id="success" class="success"></div>
+    </center>
+  </body>
+</html>
